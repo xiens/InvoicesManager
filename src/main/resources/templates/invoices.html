@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <title> Application for managing invoices </title>
+        <link rel="stylesheet"
+              href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+       <link rel="stylesheet" 
+              href="webjars/font-awesome/3.2.1/css/font-awesome.css"/>
+
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-navbar">
+                <div class="container">
+                    <span class="navbar-brand mb-0 h1"> Home </span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                            aria-expanded="false" aria-label="Togglenavigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a href="/index"     class="nav-link text-uppercase">home</a></li>
+                            <li class="nav-item"><a href="/users"     class="nav-link text-uppercase"> Users </a></li>
+                            <li class="nav-item"><a href="/companies" class="nav-link text-uppercase"> Companies / Contractors</a></li>
+                            <li class="nav-item"><a href="/invoices"  class="nav-link text-uppercase active">Invoices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+
+
+            <h1>Adding invoices</h1>
+            <h3>Enter invoice information</h3>
+            <form action="#" th:action="@{/invoices}" th:object="${invoice}" method="post">
+                <p>Invoice number: <input type="text" th:field="*{number}" /></p>
+                <p>Date: <input type="date"        value="2018-07-22"
+                                     min="2018-01-01" max="2018-12-31" th:field="*{date}" /></p>
+                <p>Date purchased: <input type="date"        value="2018-07-22"
+                                     min="2018-01-01" max="2018-12-31" th:field="*{purchase_date}" /></p>
+                <p>Date to pay: <input type="date"        value="2018-07-22"
+                                     min="2018-01-01" max="2018-12-31" th:field="*{pay_date}" /></p>
+                <p>Sum: <input type="text" th:field="*{sum}" /></p>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+
+
+            <div class="card">
+                <div class="card-block">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Date</th>
+                                <th>Purchase date</th>
+                                <th>Pay date</th>
+                                <th>Sum</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr th:each="invoice : ${invoiceslist}">
+                                <td><span th:text="${invoice.number}"> Number </span></td>
+                                <td><span th:text="${#dates.format(invoice.date, 'dd-MM-yyyy')}"> Date </span></td>
+                                <td><span th:text="${#dates.format(invoice.purchase_date, 'dd-MM-yyyy')}"> Purchase date </span></td>
+                                <td><span th:text="${#dates.format(invoice.pay_date, 'dd-MM-yyyy')}"> Pay date </span></td>
+                                <td><span th:text="${invoice.sum}"> Sum </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

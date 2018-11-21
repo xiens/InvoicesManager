@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+        <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <title> Application for managing invoices </title>
+        <link rel="stylesheet"
+              href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" 
+              href="webjars/font-awesome/3.2.1/css/font-awesome.css"/>
+
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-navbar">
+                <div class="container">
+                    <span class="navbar-brand mb-0 h1"> Home </span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                            aria-expanded="false" aria-label="Togglenavigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a href="/index"    class="nav-link text-uppercase">home</a></li>
+                            <li class="nav-item"><a href="/users"    class="nav-link text-uppercase active"> Users </a></li>
+                            <li class="nav-item"><a href="/companies" class="nav-link text-uppercase"> Companies / Contractors</a></li>
+                            <li class="nav-item"><a href="/invoices"  class="nav-link text-uppercase">Invoices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <!--            <form action="/adduser.html" method="post">
+                            <p>
+                                User name : <input type="text" name="firstName"/>
+                            </p>
+                            <p>
+                                User surname : <input type="text" name="lastName"/>
+                            </p>
+                            <input type="submit" value="Add User"/>
+                        </form>
+            
+                        <form action="/listusers.html" method="post">
+                            <input type="submit" value="List all users"/>
+                        </form>-->
+
+
+            <h1>Adding users</h1>
+            <h3>Enter user name</h3>
+            <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+                <p>First name: <input type="text" th:field="*{firstName}" /></p>
+                <p>Last name: <input type="text" th:field="*{lastName}" /></p>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+
+<!--            <h3>Added user: </h3>
+            <p th:text="'First name: ' + ${user.firstName}" />
+            <p th:text="'Last name: ' + ${user.lastName}" />-->
+
+            <!--            <table>
+                            <thead>
+                                <tr>
+                                    <th> Name </th>
+                                    <th> Surname </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:if="${users.empty}">
+                                    <td colspan="2"> No Users </td>
+                                </tr>
+                                <tr th:each="user : ${users}">
+                                    <td><span th:text="${user.firstName}"> Name </span></td>
+                                    <td><span th:text="${user.lastName}"> Surname </span></td>
+                                </tr>
+                            </tbody>
+                        </table>-->
+            <div class="card">
+                <div class="card-block">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Surname</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${userlist}">
+                                <td><span th:text="${user.firstName}"> Name </span></td>
+                                <td><span th:text="${user.lastName}"> Surname </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>
