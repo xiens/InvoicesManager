@@ -5,34 +5,36 @@
  */
 package com.example.demo.controller;
 
-/**
- *
- * @author xiens
- */
-import com.example.demo.model.Company;
 import com.example.demo.model.Invoice;
-import com.example.demo.model.User;
-import com.example.demo.repo.CompanyRepository;
-import com.example.demo.repo.ContractorRepository;
 import com.example.demo.repo.InvoiceRepository;
-import com.example.demo.repo.UserRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ *
+ * @author xiens
+ */
 @Controller
-public class WebController {
+public class InvoiceController {
 
-    @GetMapping("/index")
-    public String GetIndex() {
-        return "index";
+    @Autowired
+    InvoiceRepository invoiceRepository;
+
+    @GetMapping("/invoices")
+    public String invoiceForm(Model model) {
+        model.addAttribute("invoiceslist", invoiceRepository.findAll());
+        model.addAttribute("invoice", new Invoice());
+        return "invoices";
     }
 
+    @PostMapping("/invoices")
+    public String invoiceSubmit(@ModelAttribute Invoice invoice, Model model) {
+        invoiceRepository.save(invoice);
+        model.addAttribute("invoiceslist", invoiceRepository.findAll());
+        return "invoices";
+    }
 }

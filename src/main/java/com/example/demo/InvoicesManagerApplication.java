@@ -32,7 +32,7 @@ public class InvoicesManagerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-        // clear all record if existed before do the tutorial with new data 
+        
         userRepository.deleteAll();
         companyRepository.deleteAll();
         contractorRepository.deleteAll();
